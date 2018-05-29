@@ -5,12 +5,12 @@ Problem:
 Installation:
   I use ubuntu OS 14.04
   We use wrapper for ImageMagick [http://www.imagemagick.org/script/index.php] to Convert The PDF file
-  in Python do: 
-    
+  in Python do:
+
   $ sudo apt-get install libmagickwand-dev
   $ pip install Wand
-  
-  now install PIL 
+
+  now install PIL
   $ pip install Pillow
 
   More Installation http://sorry-wand.readthedocs.org/en/latest/guide/install.html
@@ -35,21 +35,21 @@ def convert(filepdf):
             #keep good quality
             img.compression_quality = 80
             #save it to tmp name
-            img.save(filename="temp/temp%s.jpg" % uuid_set)
+            img.save(filename="/tmp/temp%s.jpg" % uuid_set)
     except Exception, err:
         #always keep track the error until the code has been clean
         #print err
         return False
     else:
         """
-        We finally success to convert pdf to image. 
-        but image is not join by it self when we convert pdf files to image. 
+        We finally success to convert pdf to image.
+        but image is not join by it self when we convert pdf files to image.
         now we need to merge all file
         """
         pathsave = []
         try:
             #search all image in temp path. file name ends with uuid_set value
-            list_im = glob.glob("temp/temp%s*.jpg" % uuid_set)
+            list_im = glob.glob("/tmp/temp%s*.jpg" % uuid_set)
             list_im.sort() #sort the file before joining it
             imgs = [Img.open(i) for i in list_im]
             #now lets Combine several images vertically with Python
@@ -65,7 +65,7 @@ def convert(filepdf):
             for i in list_im:
                 os.remove(i)
         except Exception, err:
-            #print err 
+            #print err
             return False
         return pathsave
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 Running Test:
   python testing-pdf.py zz.pdf
   [*] Succces convert zz.pdf and save it to Resume63245.jpg
-  
+
 ===========================================
 """
-#well I hope this will be useful for you & others.       
+#well I hope this will be useful for you & others.
